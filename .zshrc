@@ -73,6 +73,7 @@ alias zshconfig="nano ~/.zshrc"
 
 # update package database depending on distro version
 # TODO: support for fedora, since it doesn't use lsb_release to check distro version
+# TODO: this is easy but add support for debian as well
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
@@ -80,23 +81,24 @@ function update() {
 	NC='\033[0m' # No Color
 	if [ $(lsb_release -ds | grep -c neon) -eq 1 ]
 	then	
-		echo -e "${BLUE}Neon detected, using pkcon instead of apt..."
+		echo -e "${BLUE}###############\npkcon updates\n###############\n"
 		sudo pkcon update
 	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ]
 	then
-		echo -e "${RED}Ubuntu in use, using apt..."
+		echo -e "${RED}##############\napt updates\n###############\n"
 		sudo apt update && sudo apt upgrade
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
-		echo -e "${GREEN}Manjaro in use, using pacman..."
+		echo -e "${GREEN}###############\npacman updates\n###############\n"
 		sudo pacman -Syu --noconfirm
+		echo -e "\n###############\nAUR updates\n###############\n"
 		yay -Syu --noconfirm
-		echo -e "Updating oh my zsh..."
-		upgrade_oh_my_zsh
-		# avoid using snaps, as it increases boot time very slightly
-		# echo -e "${NC}Running snap updates...
-		# sudo snap update
 	fi
+    echo -e "${NC}\n###############\noh my zsh\n###############\n"
+	upgrade_oh_my_zsh
+	# avoid using snaps, as it increases boot time very slightly
+	# echo -e "${NC}###############\nsnap updates\n###############\n"
+	# sudo snap update
 }
 
 # shortcut for superuser nano
