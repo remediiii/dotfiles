@@ -54,7 +54,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=()
+plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -93,9 +93,12 @@ function update() {
 		echo -e "${GREEN}Manjaro in use, using pacman..."
 		sudo pacman -Syu
 		yay -Syu
+		echo -e "Updating oh my zsh..."
+		upgrade_oh_my_zsh
+		# avoid using snaps, as it increases boot time very slightly
+		# echo -e "${NC}Running snap updates...
+		# sudo snap update
 	fi
-	echo -e "${NC}Running snap updates..."
-	sudo snap refresh
 }
 # shortcut for nano in superuser
 alias n="sudo nano"
