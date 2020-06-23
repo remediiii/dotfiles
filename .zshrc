@@ -66,15 +66,13 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 ###### aliases ######
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
 # open zshrc
 alias zshconfig="nano ~/.zshrc"
 
 # update package database depending on distro version
+# TODO: support for fedora, since it doesn't use lsb_release to check distro version
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
@@ -91,8 +89,8 @@ function update() {
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
 		echo -e "${GREEN}Manjaro in use, using pacman..."
-		sudo pacman -Syu
-		yay -Syu
+		sudo pacman -Syu --noconfirm
+		yay -Syu --noconfirm
 		echo -e "Updating oh my zsh..."
 		upgrade_oh_my_zsh
 		# avoid using snaps, as it increases boot time very slightly
@@ -100,7 +98,8 @@ function update() {
 		# sudo snap update
 	fi
 }
-# shortcut for nano in superuser
+
+# shortcut for superuser nano
 alias n="sudo nano"
 
 # similiar to macOS open
