@@ -35,11 +35,6 @@ alias n="sudo nano"
 
 ###### custom functions ######
 
-# install powerline10k
-function installp10k() {
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-}
-
 # update package database depending on distro version
 # TODO: support for fedora, since it doesn't use lsb_release to check distro version
 # TODO: this is easy but add support for debian as well
