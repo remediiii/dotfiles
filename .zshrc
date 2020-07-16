@@ -23,18 +23,22 @@ plugins=(zsh-autosuggestions colored-man-pages sudo)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 ###### aliases ######
 # For a full list of active aliases, run `alias`.
 
-# open zshrc
+# open zshrc w nano
 alias zshconfig="nano ~/.zshrc"
+
+# shortcut for superuser nano
+alias n="sudo nano"
+
+
+###### custom functions ######
+
+# install powerline10k
+function installp10k() {
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+}
 
 # update package database depending on distro version
 # TODO: support for fedora, since it doesn't use lsb_release to check distro version
@@ -66,10 +70,7 @@ function update() {
 	# sudo snap update
 }
 
-# shortcut for superuser nano
-alias n="sudo nano"
-
-# similiar to macOS open
+# similiar to macOS open,
 # open a dolphin window detached from the terminal.
 # takes one or no arguments, with no arguments, it 
 # will just open current directory.
@@ -81,9 +82,6 @@ function open() {
 		( nohup dolphin "$1" > /dev/null 2>&1& )
 	fi
 }
-
-# add to path
-export PATH="$PATH:/snap/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
