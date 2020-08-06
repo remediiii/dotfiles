@@ -59,7 +59,7 @@ function update() {
 		yay -Syu --noconfirm
 	fi
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
-	upgrade_oh_my_zsh
+	omz update
 	# avoid using snaps, as it increases boot time very slightly
 	# echo -e "${NC}###############\nsnap updates\n###############\n"
 	# sudo snap update
