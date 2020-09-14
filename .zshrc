@@ -32,11 +32,14 @@ alias zshconfig="nano ~/.zshrc"
 # shortcut for superuser nano
 alias n="sudo nano"
 
+# shortcut for dotfiles management with git
+alias dotfiles='git -C ~/dotfiles/'
 
 ###### custom functions ######
 
 # update package database depending on distro version
 # TODO: support for fedora, since it doesn't use lsb_release to check distro version
+# TODO: this is easy but add support for debian as well
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
@@ -53,7 +56,7 @@ function update() {
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
 		echo -e "\n###############\npacman & AUR updates\n###############\n"
-		yay -Syu --noconfirm
+		yay -Syu --noconfirm --aur
 	fi
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
@@ -77,4 +80,3 @@ function open() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
