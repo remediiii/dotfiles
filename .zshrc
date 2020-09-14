@@ -47,16 +47,14 @@ function update() {
 	then	
 		echo -e "${BLUE}###############\npkcon updates\n###############\n"
 		sudo pkcon update
-	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ]
+	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 || $(lsb_release -ds | grep -c debian) -eq 1]
 	then
 		echo -e "${RED}##############\napt updates\n###############\n"
 		sudo apt update && sudo apt upgrade
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
-		echo -e "${GREEN}###############\npacman updates\n###############\n"
-		sudo pacman -Syu --noconfirm
-		echo -e "\n###############\nAUR updates\n###############\n"
-		yay -Syu --noconfirm
+		echo -e "\n###############\npacman & AUR updates\n###############\n"
+		yay -Syu --noconfirm --aur
 	fi
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
