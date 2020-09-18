@@ -35,6 +35,8 @@ alias n="sudo nano"
 # shortcut for dotfiles management with git
 alias dotfiles='git -C ~/dotfiles/'
 
+# restart plasma
+alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
 ###### custom functions ######
 
 # update package database depending on distro version
@@ -49,14 +51,14 @@ function update() {
 	then	
 		echo -e "${BLUE}###############\npkcon updates\n###############\n"
 		sudo pkcon update
-	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 || $(lsb_release -ds | grep -c debian) -eq 1]
+	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ] || [ $(lsb_release -ds | grep -c debian) -eq 1 ]
 	then
 		echo -e "${RED}##############\napt updates\n###############\n"
 		sudo apt update && sudo apt upgrade
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
 		echo -e "\n###############\npacman & AUR updates\n###############\n"
-		yay -Syu --noconfirm --aur
+		yay -Syu --noconfirm
 	fi
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
