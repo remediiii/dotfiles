@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -19,7 +21,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions colored-man-pages sudo)
+plugins=(zsh-autosuggestions colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -57,7 +59,7 @@ function update() {
 		sudo apt update && sudo apt upgrade
 	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
 	then
-		echo -e "\n###############\npacman & AUR updates\n###############\n"
+		echo -e "\n${GREEN}###############\npacman & AUR updates\n###############\n"
 		yay -Syu --noconfirm
 	fi
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
