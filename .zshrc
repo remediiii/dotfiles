@@ -53,7 +53,7 @@ function update() {
 	then	
 		echo -e "${BLUE}###############\npkcon updates\n###############\n"
 		sudo pkcon update
-	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ] || [ $(lsb_release -ds | grep -c debian) -eq 1 ]
+	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ] || [ $(lsb_release -ds | grep -c Debian) -eq 1 ]
 	then
 		echo -e "${RED}##############\napt updates\n###############\n"
 		sudo apt update && sudo apt upgrade
