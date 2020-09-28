@@ -62,7 +62,7 @@ function update() {
 			sudo pkcon update
 			;;
 		*Fedora*)
-			echo -e "###############\ndnf updates\n###############\n"
+			echo -e "${BLUE}###############\ndnf updates\n###############\n"
 			sudo dnf upgrade
 			;;
 	esac
@@ -78,7 +78,7 @@ function open() {
 		gnome)
 		FILE_MANAGER="nautilus"
 		;;
-		/usr/share/xsessions/plasma)
+		/usr/share/xsessions/plasma | /usr/share/wayland-sessions/plasmawayland)
 		FILE_MANAGER="dolphin"		
 		;;
 	esac
