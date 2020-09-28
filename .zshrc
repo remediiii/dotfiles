@@ -66,11 +66,8 @@ function update() {
 			sudo dnf upgrade
 			;;
 	esac
-    echo -e "${NC}\n###############\noh my zsh\n###############\n"
+    	echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
-	# avoid using snaps, as it increases boot time very slightly
-	# echo -e "${NC}###############\nsnap updates\n###############\n"
-	# sudo snap update
 }
 
 # similiar to macOS open,
