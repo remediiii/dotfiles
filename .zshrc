@@ -39,6 +39,7 @@ alias dotfiles='git -C ~/dotfiles/'
 
 # restart plasma
 alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
+
 ###### custom functions ######
 
 # update package database depending on distro version
@@ -49,19 +50,24 @@ function update() {
 	BLUE='\033[1;34m'
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
-	if [ $(lsb_release -ds | grep -c neon) -eq 1 ]
-	then	
-		echo -e "${BLUE}###############\npkcon updates\n###############\n"
-		sudo pkcon update
-	elif [ $(lsb_release -ds | grep -c ubuntu) -eq 1 ] || [ $(lsb_release -ds | grep -c Debian) -eq 1 ]
-	then
-		echo -e "${RED}##############\napt updates\n###############\n"
-		sudo apt update && sudo apt upgrade
-	elif [ $(lsb_release -ds | grep -c Manjaro) -eq 1 ]
-	then
-		echo -e "\n${GREEN}###############\npacman & AUR updates\n###############\n"
-		yay -Syu --noconfirm
-	fi
+	case $(lsb_release -ds) in
+		*Manjaro*)
+			echo -e "\n${GREEN}###############\npacman & AUR updates\n###############\n"
+			yay -Syu --noconfirm
+			;;
+		*ubuntu* | *Debian*)
+			echo -e "${RED}##############\napt updates\n###############\n"
+			sudo apt update && sudo apt upgrade
+			;;
+		*neon*)
+			echo -e "${BLUE}###############\npkcon updates\n###############\n"
+			sudo pkcon update
+			;;
+		*Fedora*)
+			echo -e "###############\ndnf updates\n###############\n"
+			sudo dnf upgrade
+			;;
+	esac
     echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
 	# avoid using snaps, as it increases boot time very slightly
@@ -74,17 +80,13 @@ function update() {
 # can pass in specified directory as argument
 function open() {
 	case $DESKTOP_SESSION in
-
 		gnome)
 		FILE_MANAGER="nautilus"
 		;;
-
 		/usr/share/xsessions/plasma)
 		FILE_MANAGER="dolphin"		
 		;;
-
 	esac
-	
 	if [ -z "$1" ]
 	then
 		( nohup $FILE_MANAGER . > /dev/null 2>&1& )
