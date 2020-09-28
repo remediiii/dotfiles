@@ -40,6 +40,9 @@ alias dotfiles='git -C ~/dotfiles/'
 # restart plasma
 alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
 
+# create parent directories by default
+alias mkdir='mkdir -pv'
+
 ###### custom functions ######
 
 # update package database depending on distro version
@@ -49,13 +52,13 @@ function update() {
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
 	case $(lsb_release -ds) in
-		*Manjaro*)
+		*Manjaro* | *Arch*)
 			echo -e "\n${GREEN}###############\npacman & AUR updates\n###############\n"
 			yay -Syu --noconfirm
 			;;
 		*ubuntu* | *Debian*)
 			echo -e "${RED}##############\napt updates\n###############\n"
-			sudo apt update && sudo apt upgrade
+			sudo apt update && sudo apt upgrade --yes
 			;;
 		*neon*)
 			echo -e "${BLUE}###############\npkcon updates\n###############\n"
@@ -66,7 +69,7 @@ function update() {
 			sudo dnf upgrade
 			;;
 	esac
-    	echo -e "${NC}\n###############\noh my zsh\n###############\n"
+    echo -e "${NC}\n###############\noh my zsh\n###############\n"
 	omz update
 }
 
