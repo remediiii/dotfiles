@@ -1,7 +1,6 @@
 # dotfiles
-user config files for linux
+my dotfiles for linux
 
+requires oh-my-zsh and powerline10k
 
-literally just a spot for me to keep my dotfiles so copying them over isn't as ugly as using something like onedrive or ftp
-
-requires oh-my-zsh and p10k
+update function requires redhat-lsb on Fedora
