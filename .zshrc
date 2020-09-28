@@ -70,15 +70,26 @@ function update() {
 }
 
 # similiar to macOS open,
-# open a dolphin window detached from the terminal.
-# takes one or no arguments, with no arguments, it 
-# will just open current directory.
+# open a file manager window detached from the terminal.
+# can pass in specified directory as argument
 function open() {
+	case $DESKTOP_SESSION in
+
+		gnome)
+		FILE_MANAGER="nautilus"
+		;;
+
+		/usr/share/xsessions/plasma)
+		FILE_MANAGER="dolphin"		
+		;;
+
+	esac
+	
 	if [ -z "$1" ]
 	then
-		( nohup dolphin . > /dev/null 2>&1& )
+		( nohup $FILE_MANAGER . > /dev/null 2>&1& )
 	else
-		( nohup dolphin "$1" > /dev/null 2>&1& )
+		( nohup $FILE_MANAGER "$1" > /dev/null 2>&1& )
 	fi
 }
 
