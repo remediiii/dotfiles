@@ -43,8 +43,6 @@ alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
 ###### custom functions ######
 
 # update package database depending on distro version
-# TODO: support for fedora, since it doesn't use lsb_release to check distro version
-# TODO: this is easy but add support for debian as well
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
