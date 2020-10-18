@@ -8,7 +8,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/will/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -34,9 +34,6 @@ alias zshconfig="nano ~/.zshrc"
 # shortcut for superuser nano
 alias n="sudo nano"
 
-# shortcut for dotfiles management with git
-alias dotfiles='git -C ~/dotfiles/'
-
 # restart plasma
 alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
 
@@ -53,24 +50,53 @@ function update() {
 	NC='\033[0m' # No Color
 	case $(lsb_release -ds) in
 		*Manjaro* | *Arch*)
-			echo -e "\n${GREEN}###############\npacman & AUR updates\n###############\n"
+			echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
 			yay -Syu --noconfirm
 			;;
 		*ubuntu* | *Debian*)
-			echo -e "${RED}##############\napt updates\n###############\n"
+			echo -e "${RED}#########\napt updates\n#########\n"
 			sudo apt update && sudo apt upgrade --yes
 			;;
 		*neon*)
-			echo -e "${BLUE}###############\npkcon updates\n###############\n"
+			echo -e "${BLUE}#########\npkcon updates\n#########\n"
 			sudo pkcon update
 			;;
 		*Fedora*)
-			echo -e "${BLUE}###############\ndnf updates\n###############\n"
+			echo -e "${BLUE}#########\ndnf updates\n#########\n"
 			sudo dnf upgrade
 			;;
 	esac
-    echo -e "${NC}\n###############\noh my zsh\n###############\n"
+    echo -e "${NC}\n#########\noh my zsh\n#########\n"
 	omz update
+}
+
+function youtube-dl() {
+	youtube-dl $1 -f bestvideo+bestaudio/best
+}
+
+# assembly shortcut for compilation
+function qasm() {
+	if [ -z "$1" ]
+	then
+		echo -e "Usage: qasm filename [32/64]"
+		return
+	fi
+	FILE_NAME=$(basename $1 .asm) 	
+	case $2 in 
+		64)
+			nasm -f elf64 -o $FILE_NAME.o $1
+			ld -e _main -melf_x86_64 -o $FILE_NAME $FILE_NAME.o
+			;;
+		*)
+			if [ -z "$2" ]
+			then
+				echo -e "Bits not supported or not specified. Defaulting to 32-bit..."
+			fi
+			nasm -f elf32 -o $FILE_NAME.o $1
+			ld -e _main -melf_i386 -o $FILE_NAME $FILE_NAME.o 
+			;;
+	esac
+	echo -e "Output file: ${FILE_NAME}"
 }
 
 # similiar to macOS open,
@@ -84,6 +110,9 @@ function open() {
 		/usr/share/xsessions/plasma | /usr/share/wayland-sessions/plasmawayland)
 		FILE_MANAGER="dolphin"		
 		;;
+		# xfce
+		# FILE_MANAGER="thunar"
+		# ;;
 	esac
 	if [ -z "$1" ]
 	then
