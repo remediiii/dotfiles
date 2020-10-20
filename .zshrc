@@ -10,6 +10,10 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Increase default HISTSIZE
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -19,11 +23,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(zsh-autosuggestions colored-man-pages)
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 
 ###### aliases ######
 # For a full list of active aliases, run `alias`.
@@ -71,7 +74,7 @@ function update() {
 }
 
 function youtube-dl() {
-	youtube-dl $1 -f bestvideo+bestaudio/best
+	youtube-dl "$1" -f bestvideo+bestaudio/best
 }
 
 # assembly shortcut for compilation
@@ -81,19 +84,19 @@ function qasm() {
 		echo -e "Usage: qasm filename [32/64]"
 		return
 	fi
-	FILE_NAME=$(basename $1 .asm) 	
+	FILE_NAME=$(basename "$1" .asm) 	
 	case $2 in 
 		64)
-			nasm -f elf64 -o $FILE_NAME.o $1
-			ld -e _main -melf_x86_64 -o $FILE_NAME $FILE_NAME.o
+			nasm -f elf64 -o "$FILE_NAME".o "$1"
+			ld -e _main -melf_x86_64 -o "$FILE_NAME" "$FILE_NAME".o
 			;;
 		*)
 			if [ -z "$2" ]
 			then
 				echo -e "Bits not supported or not specified. Defaulting to 32-bit..."
 			fi
-			nasm -f elf32 -o $FILE_NAME.o $1
-			ld -e _main -melf_i386 -o $FILE_NAME $FILE_NAME.o 
+			nasm -f elf32 -o "$FILE_NAME".o "$1"
+			ld -e _main -melf_i386 -o "$FILE_NAME" "$FILE_NAME".o 
 			;;
 	esac
 	echo -e "Output file: ${FILE_NAME}"
