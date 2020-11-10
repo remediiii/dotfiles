@@ -7,6 +7,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+neofetch
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -42,6 +44,9 @@ alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
 
 # create parent directories by default
 alias mkdir='mkdir -pv'
+
+# macOS-style open command
+alias open="xdg-open &> /dev/null"
 
 ###### custom functions ######
 
@@ -101,29 +106,5 @@ function qasm() {
 	esac
 	echo -e "Output file: ${FILE_NAME}"
 }
-
-# similiar to macOS open,
-# open a file manager window detached from the terminal.
-# can pass in specified directory as argument
-function open() {
-	case $DESKTOP_SESSION in
-		gnome)
-		FILE_MANAGER="nautilus"
-		;;
-		/usr/share/xsessions/plasma | /usr/share/wayland-sessions/plasmawayland)
-		FILE_MANAGER="dolphin"		
-		;;
-		# xfce
-		# FILE_MANAGER="thunar"
-		# ;;
-	esac
-	if [ -z "$1" ]
-	then
-		( nohup $FILE_MANAGER . > /dev/null 2>&1& )
-	else
-		( nohup $FILE_MANAGER "$1" > /dev/null 2>&1& )
-	fi
-}
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
