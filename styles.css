@@ -12,6 +12,7 @@ code, pre {
 }
 a:link, a:visited{
     color:#8ac148;
+    text-decoration: none;
 }
 a:hover{
     color: #599014;
