@@ -4,14 +4,28 @@ body{
     color:white;
 }
 code {
-    background:rgb(34, 34, 34);
+    background:#212121;
     padding: 8px;
     border: white;
     border-radius: 10px;
 }
-a:link{
-    color:green
+a:link, a:visited{
+    color:#8ac148;
 }
-a:visited{
-    color:greenyellow
+a:hover{
+    color: #599014;
+}
+a:active{
+    color:rgb(136, 0, 0)
+}
+.link_button{
+    background-color: #8ac148;
+    text-decoration: none;
+    text-align: center;
+    color:black !important;
+    border-radius: 10px;
+    padding: 15px;
+}
+.link_button:hover{
+    background-color: #599014;
 }
