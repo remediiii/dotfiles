@@ -16,7 +16,7 @@ a:hover{
     color: #599014;
 }
 a:active{
-    color:rgb(136, 0, 0)
+    color: #276200;
 }
 .link_button{
     background-color: #8ac148;
@@ -28,4 +28,7 @@ a:active{
 }
 .link_button:hover{
     background-color: #599014;
+}
+.link_button:active{
+    background-color: #276200;
 }
