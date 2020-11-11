@@ -2,10 +2,11 @@ body{
     font-family: 'Fira Mono', monospace;
     background: black;
     color:white;
+    text-align: center;
 }
-code {
+code, pre {
     background:#212121;
-    padding: 8px;
+    padding: 9px;
     border: white;
     border-radius: 10px;
 }
@@ -32,3 +33,11 @@ a:active{
 .link_button:active{
     background-color: #276200;
 }
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #212121;
+    color: white;
+  }
