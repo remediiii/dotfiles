@@ -33,4 +33,5 @@ a:active{
 }
 .link_button:active{
     background-color: #276200;
+    filter: blur(0.75px)
 }
