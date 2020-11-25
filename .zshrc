@@ -61,7 +61,7 @@ function update() {
 			echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
 			yay -Syu --noconfirm
 			;;
-		*ubuntu* | *Debian*)
+		*buntu* | *Debian*)
 			echo -e "${RED}#########\napt updates\n#########\n"
 			sudo apt update && sudo apt upgrade --yes
 			;;
