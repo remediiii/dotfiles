@@ -74,8 +74,10 @@ function update() {
 			sudo dnf upgrade
 			;;
 	esac
-    echo -e "${NC}\n#########\noh my zsh\n#########\n"
-	omz update
+    	echo "Packages have been updated."
+        echo -e "${NC}\n#########\noh my zsh\n#########\n"
+        omz update &> /dev/null
+        echo "oh my zsh has been updated."
 }
 
 function youtube-dl() {
