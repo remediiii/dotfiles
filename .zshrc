@@ -16,6 +16,9 @@ export ZSH="$HOME/.oh-my-zsh"
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 
+# set default editor to neovim
+export EDITOR='nvim'
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -30,23 +33,29 @@ plugins=(zsh-autosuggestions colored-man-pages)
 
 source "$ZSH"/oh-my-zsh.sh
 
+
 ###### aliases ######
 # For a full list of active aliases, run `alias`.
 
-# open zshrc w nano
-alias zshconfig="nano ~/.zshrc"
+# quickly edit .zshrc
+alias zshconfig="${EDITOR} ~/.zshrc"
 
-# shortcut for superuser nano
-alias n="sudo nano"
+# quickly edit neovim config
+alias vimconfig="${EDITOR} ~/.config/nvim/init.vim"
+
+# shortcut for superuser editor
+alias n="sudo ${EDITOR}"
 
 # restart plasma
-alias rplasma='kquitapp5 plasmashell && kstart5 plasmashell'
+alias rplasma='kquitapp5 plasmashell &> /dev/null && kstart5 plasmashell &> /dev/null'
 
 # create parent directories by default
 alias mkdir='mkdir -pv'
 
 # macOS-style open command
 alias open="xdg-open &> /dev/null"
+
+
 
 ###### custom functions ######
 
@@ -74,10 +83,10 @@ function update() {
 			sudo dnf upgrade
 			;;
 	esac
-    	echo "Packages have been updated."
-        echo -e "${NC}\n#########\noh my zsh\n#########\n"
-        omz update &> /dev/null
-        echo "oh my zsh has been updated."
+	echo "Packages have been updated."
+    	echo -e "${NC}\n#########\noh my zsh\n#########\n"
+	omz update &> /dev/null
+	echo "oh my zsh has been updated."
 }
 
 function youtube-dl() {
