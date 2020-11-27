@@ -5,3 +5,5 @@ call plug#end()
 
 colorscheme nord
 
+:set number
+:set autoindent
