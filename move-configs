@@ -1,3 +1,0 @@
-mkdir -pv ~/.config/nvim/
-mv init.vim ~/.config/nvim/
-mv .zshrc .p10k.zsh ~
