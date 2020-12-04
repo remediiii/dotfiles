@@ -65,24 +65,30 @@ function update() {
 	BLUE='\033[1;34m'
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
-	case $(lsb_release -ds) in
-		*Manjaro* | *Arch*)
-			echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
-			yay -Syu --noconfirm
-			;;
-		*buntu* | *Debian*)
-			echo -e "${RED}#########\napt updates\n#########\n"
-			sudo apt update && sudo apt upgrade --yes
-			;;
-		*neon*)
-			echo -e "${BLUE}#########\npkcon updates\n#########\n"
-			sudo pkcon update
-			;;
-		*Fedora*)
-			echo -e "${BLUE}#########\ndnf updates\n#########\n"
-			sudo dnf upgrade
-			;;
-	esac
+	if [ $(uname | grep Darwin -c) ]
+	then
+		echo -e "\n########\nbrew updates\n########\n"
+		brew upgrade
+	else 
+		case $(lsb_release -ds) in
+			*Manjaro* | *Arch*)
+				echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
+				yay -Syu --noconfirm
+				;;
+			*buntu* | *Debian*)
+				echo -e "${RED}#########\napt updates\n#########\n"
+				sudo apt update && sudo apt upgrade --yes
+				;;
+			*neon*)
+				echo -e "${BLUE}#########\npkcon updates\n#########\n"
+				sudo pkcon update
+				;;
+			*Fedora*)
+				echo -e "${BLUE}#########\ndnf updates\n#########\n"
+				sudo dnf upgrade
+				;;
+		esac
+	fi
 	echo "Packages have been updated."
     	echo -e "${NC}\n#########\noh my zsh\n#########\n"
 	omz update &> /dev/null
