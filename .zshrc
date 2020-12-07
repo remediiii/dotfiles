@@ -59,13 +59,17 @@ alias open="xdg-open &> /dev/null"
 
 ###### custom functions ######
 
+
+# check if running WSL
+
+
 # update package database depending on distro version
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
-	if [ $(uname | grep Darwin -c) ]
+	if [ $(uname) = "Darwin" ]
 	then
 		echo -e "\n########\nbrew updates\n########\n"
 		brew upgrade
@@ -93,6 +97,7 @@ function update() {
     	echo -e "${NC}\n#########\noh my zsh\n#########\n"
 	omz update &> /dev/null
 	echo "oh my zsh has been updated."
+	echo $USING_WSL
 }
 
 function youtube-dl() {
