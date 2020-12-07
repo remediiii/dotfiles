@@ -19,6 +19,12 @@ export HISTFILESIZE=10000
 # set default editor to neovim
 export EDITOR='nvim'
 
+# check if running WSL
+if [ $(uname -r | grep microsoft -c) ] # does kernel name include microsoft?
+then
+	USING_WSL=1
+fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -58,10 +64,6 @@ alias open="xdg-open &> /dev/null"
 
 
 ###### custom functions ######
-
-
-# check if running WSL
-
 
 # update package database depending on distro version
 function update() {
