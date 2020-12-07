@@ -96,10 +96,9 @@ function update() {
 		esac
 	fi
 	echo "Packages have been updated."
-    	echo -e "${NC}\n#########\noh my zsh\n#########\n"
+    echo -e "${NC}\n#########\noh my zsh\n#########\n"
 	omz update &> /dev/null
 	echo "oh my zsh has been updated."
-	echo $USING_WSL
 }
 
 function youtube-dl() {
