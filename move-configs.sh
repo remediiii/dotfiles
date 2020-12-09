@@ -18,3 +18,4 @@ do
 done
 
 cp .zshrc .p10k.zsh ~
+echo "Everything seems to have installed okay!"
