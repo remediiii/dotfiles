@@ -1,13 +1,13 @@
 #!/bin/zsh
 
-neofetch 
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+neofetch
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -18,6 +18,12 @@ export HISTFILESIZE=10000
 
 # set default editor to neovim
 export EDITOR='nvim'
+
+# check if running WSL
+if [ $(uname -r | grep microsoft -c) ] # does kernel name include microsoft?
+then
+	USING_WSL=1
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -65,26 +71,32 @@ function update() {
 	BLUE='\033[1;34m'
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
-	case $(lsb_release -ds) in
-		*Manjaro* | *Arch*)
-			echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
-			yay -Syu --noconfirm
-			;;
-		*buntu* | *Debian*)
-			echo -e "${RED}#########\napt updates\n#########\n"
-			sudo apt update && sudo apt upgrade --yes
-			;;
-		*neon*)
-			echo -e "${BLUE}#########\npkcon updates\n#########\n"
-			sudo pkcon update
-			;;
-		*Fedora*)
-			echo -e "${BLUE}#########\ndnf updates\n#########\n"
-			sudo dnf upgrade
-			;;
-	esac
+	if [ $(uname) = "Darwin" ]
+	then
+		echo -e "\n########\nbrew updates\n########\n"
+		brew upgrade
+	else 
+		case $(lsb_release -ds) in
+			*Manjaro* | *Arch*)
+				echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
+				yay -Syu --noconfirm
+				;;
+			*buntu* | *Debian*)
+				echo -e "${RED}#########\napt updates\n#########\n"
+				sudo apt update && sudo apt upgrade --yes
+				;;
+			*neon*)
+				echo -e "${BLUE}#########\npkcon updates\n#########\n"
+				sudo pkcon update
+				;;
+			*Fedora*)
+				echo -e "${BLUE}#########\ndnf updates\n#########\n"
+				sudo dnf upgrade
+				;;
+		esac
+	fi
 	echo "Packages have been updated."
-    	echo -e "${NC}\n#########\noh my zsh\n#########\n"
+    echo -e "${NC}\n#########\noh my zsh\n#########\n"
 	omz update &> /dev/null
 	echo "oh my zsh has been updated."
 }
