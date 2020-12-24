@@ -17,5 +17,29 @@ do
     esac
 done
 
-cp .zshrc .p10k.zsh ~
-echo "Everything seems to have installed okay!"
+
+read -p "Install neofetch config? [y/n] " answer
+
+while true
+do
+    case $answer in
+        [yY]* ) 
+            echo "Installing neofetch config..."
+            mkdir -pv ~/.config/neofetch/
+            cp neofetch.conf ~/.config/neofetch/config.conf
+            break;;
+
+        [nN]* ) 
+            echo "Not installing neofetch config..."
+            break;;
+
+        * ) echo "Invalid option entered."
+    esac
+done
+
+echo "Moving .zshrc..."
+cp .zshrc ~
+echo "Moving .p10k.zsh..."
+cp .p10k.zsh ~
+
+echo "Moving completed!"
