@@ -31,11 +31,14 @@ fi
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+# Use tab completion waiting dots 
+COMPLETION_WAITING_DOTS="true"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions colored-man-pages)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)
 
 source "$ZSH"/oh-my-zsh.sh
 
