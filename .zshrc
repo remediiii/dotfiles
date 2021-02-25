@@ -1,5 +1,22 @@
 #!/bin/zsh
 
+
+# flash keyboard brightness
+case $(brightnessctl --device='tpacpi::kbd_backlight' g) in 
+	2)
+		(  brightnessctl --device='tpacpi::kbd_backlight' set 0% 
+		brightnessctl --device='tpacpi::kbd_backlight' set 100% ) &> /dev/null
+		;;
+	1)
+		(  brightnessctl --device='tpacpi::kbd_backlight' set 0%
+		brightnessctl --device='tpacpi::kbd_backlight' set 50% ) &> /dev/null
+		;;
+	0)
+		(  brightnessctl --device='tpacpi::kbd_backlight' set 100%
+		brightnessctl --device='tpacpi::kbd_backlight' set 0% ) &> /dev/null
+		;;
+esac
+
 neofetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
