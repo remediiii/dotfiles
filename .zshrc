@@ -116,9 +116,12 @@ function update() {
 		esac
 	fi
 	echo "Packages have been updated."
-    echo -e "${NC}\n#########\noh my zsh\n#########\n"
-	omz update &> /dev/null
-	echo "oh my zsh has been updated."
+    echo -e "${RED}\n#########\noh my zsh\n#########\n"
+	omz update
+
+	echo -e "${RED}\n#########\npowerlevel 10k\n#########\n"
+	git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull
+	echo $'\a'
 }
 
 function youtube-dl() {
