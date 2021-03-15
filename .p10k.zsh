@@ -31,12 +31,25 @@
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    # os_icon               # os identifier
+    os_icon               # os identifier
     dir                     # current directory
     vcs                     # git status
     # prompt_char           # prompt symbol
   )
 
+  # Displays CPU temp
+  function prompt_my_cpu_temp(){
+      integer cpu_temp="$(</sys/class/thermal/thermal_zone0/temp) / 1000"
+      if (( cpu_temp >= 100 )); then
+          p10k segment -s BURNING -f red -i '' -t "${cpu_temp}"
+      elif (( cpu_temp >= 80 )); then
+          p10k segment -s HOT -f red -i '' -t "${cpu_temp}"
+      elif (( cpu_temp >= 60 )); then
+          p10k segment -s WARM -f yellow -i '' -t "${cpu_temp}"
+      elif (( cpu_temp < 60 )); then
+          p10k segment -s COOL -f blue -i '' -t "${cpu_temp}"
+      fi
+  }
   # The list of segments shown on the right. Fill it with less important segments.
   # Right prompt on the last prompt line (where you are typing your commands) gets
   # automatically hidden when the input line reaches it. Right prompt above the
@@ -101,6 +114,7 @@
     # battery               # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
+    my_cpu_temp
   )
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
