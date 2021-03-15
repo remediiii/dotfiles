@@ -38,12 +38,14 @@
   )
 
   # Displays CPU temp
-  function prompt_my_cpu_temp(){
+  function prompt_my_cpu_temp() {
       integer cpu_temp="$(</sys/class/thermal/thermal_zone0/temp) / 1000"
       if (( cpu_temp >= 100 )); then
-          p10k segment -s BURNING -f red -i '' -t "${cpu_temp}"
+          p10k segment -s PLEASETURNMEOFF -f 196 -i '' -t "${cpu_temp}"
+      elif (( cpu_temp >= 90 )); then
+          p10k segment -s BURNING -f red -i '' -t "${cpu_temp}"
       elif (( cpu_temp >= 80 )); then
-          p10k segment -s HOT -f red -i '' -t "${cpu_temp}"
+          p10k segment -s HOT -f 215 -i '' -t "${cpu_temp}"
       elif (( cpu_temp >= 60 )); then
           p10k segment -s WARM -f yellow -i '' -t "${cpu_temp}"
       elif (( cpu_temp < 60 )); then
