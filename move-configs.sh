@@ -13,8 +13,8 @@ do
     case $answer in
         [yY]* ) 
             echo "${GREEN}Installing neovim config..."
-            #mkdir -pv ~/.config/nvim/
-            #cp init.vim ~/.config/nvim/
+            mkdir -pv ~/.config/nvim/
+            cp init.vim ~/.config/nvim/
             break;;
 
         [nN]* ) 
@@ -32,8 +32,8 @@ do
     case $answer in
         [yY]* ) 
             echo "${GREEN}Installing neofetch config..."
-            #mkdir -pv ~/.config/neofetch/
-            #cp neofetch.conf ~/.config/neofetch/config.conf
+            mkdir -pv ~/.config/neofetch/
+            cp neofetch.conf ~/.config/neofetch/config.conf
             break;;
 
         [nN]* ) 
@@ -51,9 +51,9 @@ do
         [yY]* ) 
             echo "${GREEN}Installing zsh and p10k configs..."
             echo "${NC}Moving .zshrc..."
-            #cp .zshrc ~
+            cp .zshrc ~
             echo "Moving .p10k.zsh..."
-            #cp .p10k.zsh ~
+            cp .p10k.zsh ~
             break;;
 
         [nN]* ) 
