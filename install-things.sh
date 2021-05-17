@@ -3,7 +3,7 @@ do
     read -p "$(echo "Install oh-my-zsh? [y/n]") " answer
     case $answer in
         [yY]* ) 
-            echo "Installing oh-my-zsh...${NC}"
+            echo "Installing oh-my-zsh..."
             sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
             break;;
 
@@ -21,7 +21,7 @@ do
     read -p "$(echo "Install powerlevel10k? [y/n]") " answer
     case $answer in
         [yY]* ) 
-            echo "Installing powerlevel10k...${NC}"
+            echo "Installing powerlevel10k..."
             git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
             break;;
 
@@ -39,7 +39,7 @@ do
     read -p "$(echo "Install vimplug? [y/n]") " answer
     case $answer in
         [yY]* ) 
-            echo "Installing vimplug...${NC}"
+            echo "Installing vimplug..."
             sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
                 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
             break;;
