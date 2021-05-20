@@ -81,7 +81,7 @@ alias mkdir='mkdir -pv'
 # macOS-style open command
 alias open="xdg-open &> /dev/null"
 
-
+alias ls="lsd"
 
 ###### custom functions ######
 
