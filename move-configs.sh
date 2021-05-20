@@ -1,4 +1,4 @@
-hile true
+while true
 do
     read -p "$(echo "Install init.vim for neovim? [y/n]") " answer
     case $answer in
