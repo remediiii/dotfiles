@@ -18,6 +18,26 @@ done
 
 while true
 do
+    read -p "$(echo "Install zsh-autosuggestions and zsh-syntax-highlighting? [y/n]") " answer
+    case $answer in
+        [yY]* ) 
+            echo "Installing zsh plugins..."
+            git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+            break;;
+
+        [nN]* ) 
+            echo "Not installing zsh plugins..."
+            break;;
+
+        * ) echo "Invalid option entered."
+
+    esac
+done
+
+
+while true
+do
     read -p "$(echo "Install powerlevel10k? [y/n]") " answer
     case $answer in
         [yY]* ) 
