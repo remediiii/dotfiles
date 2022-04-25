@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+pfetch
 
 # flash keyboard brightness
 case $(brightnessctl --device='tpacpi::kbd_backlight' g) in 
@@ -16,8 +17,6 @@ case $(brightnessctl --device='tpacpi::kbd_backlight' g) in
 		brightnessctl --device='tpacpi::kbd_backlight' set 0% ) &> /dev/null
 		;;
 esac
-
-neofetch
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -55,7 +54,7 @@ COMPLETION_WAITING_DOTS="true"
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages you-should-use)
 
 source "$ZSH"/oh-my-zsh.sh
 
@@ -81,7 +80,11 @@ alias mkdir='mkdir -pv'
 # macOS-style open command
 alias open="xdg-open &> /dev/null"
 
+# use lsd instead of ls
 alias ls="lsd"
+
+##### keybinds #####
+bindkey -s '^]' 'ssh tf2.sleepyarchimedes.com\n'
 
 ###### custom functions ######
 
@@ -124,33 +127,7 @@ function update() {
 	echo $'\a'
 }
 
-function youtube-dl() {
-	youtube-dl "$1" -f bestvideo+bestaudio/best
-}
-
-# assembly shortcut for compilation
-function qasm() {
-	if [ -z "$1" ]
-	then
-		echo -e "Usage: qasm filename [32/64]"
-		return
-	fi
-	FILE_NAME=$(basename "$1" .asm) 	
-	case $2 in 
-		64)
-			nasm -f elf64 -o "$FILE_NAME".o "$1"
-			ld -e _main -melf_x86_64 -o "$FILE_NAME" "$FILE_NAME".o
-			;;
-		*)
-			if [ -z "$2" ]
-			then
-				echo -e "Bits not supported or not specified. Defaulting to 32-bit..."
-			fi
-			nasm -f elf32 -o "$FILE_NAME".o "$1"
-			ld -e _main -melf_i386 -o "$FILE_NAME" "$FILE_NAME".o 
-			;;
-	esac
-	echo -e "Output file: ${FILE_NAME}"
-}
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval $(thefuck --alias)
