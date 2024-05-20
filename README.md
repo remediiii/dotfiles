@@ -8,7 +8,7 @@ neovim is my default editor, so change your .zshrc EDITOR variable accordingly.
 * oh-my-zsh
 * powerlevel10k
 * vim-plug (optional, only if using neovim config)
-* (if running Fedora, for update function) redhat-lsb
+
 
 ## installation
 
