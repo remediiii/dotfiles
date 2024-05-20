@@ -1,23 +1,5 @@
 #!/bin/zsh
 
-pfetch
-
-# flash keyboard brightness
-case $(brightnessctl --device='tpacpi::kbd_backlight' g) in 
-	2)
-		(  brightnessctl --device='tpacpi::kbd_backlight' set 0% 
-		brightnessctl --device='tpacpi::kbd_backlight' set 100% ) &> /dev/null
-		;;
-	1)
-		(  brightnessctl --device='tpacpi::kbd_backlight' set 0%
-		brightnessctl --device='tpacpi::kbd_backlight' set 50% ) &> /dev/null
-		;;
-	0)
-		(  brightnessctl --device='tpacpi::kbd_backlight' set 100%
-		brightnessctl --device='tpacpi::kbd_backlight' set 0% ) &> /dev/null
-		;;
-esac
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -27,6 +9,11 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+COMPLETION_WAITING_DOTS="true"
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+source "$ZSH"/oh-my-zsh.sh
+
 
 # Increase default HISTSIZE
 export HISTSIZE=10000
@@ -35,44 +22,17 @@ export HISTFILESIZE=10000
 # set default editor to neovim
 export EDITOR='nvim'
 
-# check if running WSL
-if [ $(uname -r | grep microsoft -c) ] # does kernel name include microsoft?
-then
-	USING_WSL=1
-fi
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Use tab completion waiting dots 
-COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting colored-man-pages you-should-use)
-
-source "$ZSH"/oh-my-zsh.sh
-
-
 ###### aliases ######
 # For a full list of active aliases, run `alias`.
 
 # quickly edit .zshrc
-alias zshconfig="${EDITOR} ~/.zshrc"
+alias zshconfig="${EDITOR} $HOME/.zshrc"
 
 # quickly edit neovim config
-alias vimconfig="${EDITOR} ~/.config/nvim/init.vim"
+alias vimconfig="${EDITOR} $HOME/.config/nvim/init.vim"
 
 # shortcut for superuser editor
 alias n="sudo ${EDITOR}"
-
-# restart plasma
-alias rplasma='kquitapp5 plasmashell &> /dev/null && kstart5 plasmashell &> /dev/null'
 
 # create parent directories by default
 alias mkdir='mkdir -pv'
@@ -83,51 +43,30 @@ alias open="xdg-open &> /dev/null"
 # use lsd instead of ls
 alias ls="lsd"
 
-##### keybinds #####
-bindkey -s '^]' 'ssh tf2.sleepyarchimedes.com\n'
-
-###### custom functions ######
-
 # update package database depending on distro version
 function update() {
 	RED='\033[1;31m'
 	BLUE='\033[1;34m'
 	GREEN='\033[1;32m'
 	NC='\033[0m' # No Color
-	if [ $(uname) = "Darwin" ]
-	then
-		echo -e "\n########\nbrew updates\n########\n"
-		brew upgrade
-	else 
-		case $(lsb_release -ds) in
-			*Manjaro* | *Arch*)
-				echo -e "\n${GREEN}#########\npacman & AUR updates\n#########\n"
-				yay -Syu --noconfirm
-				;;
-			*buntu* | *Debian*)
-				echo -e "${RED}#########\napt updates\n#########\n"
-				sudo apt update && sudo apt upgrade --yes
-				;;
-			*neon*)
-				echo -e "${BLUE}#########\npkcon updates\n#########\n"
-				sudo pkcon update
-				;;
-			*Fedora*)
-				echo -e "${BLUE}#########\ndnf updates\n#########\n"
-				sudo dnf upgrade
-				;;
-		esac
-	fi
+	case $(lsb_release -ds) in
+		*Manjaro* | *Arch*)
+			echo -e "\n${GREEN}#####\npacman & AUR updates\n#####\n"
+			yay -Syu --noconfirm
+			;;
+		*buntu* | *Debian*)
+			echo -e "${RED}#####\napt updates\n#####\n"
+			sudo apt update && sudo apt upgrade --yes
+			;;
+	esac
 	echo "Packages have been updated."
-    echo -e "${RED}\n#########\noh my zsh\n#########\n"
+    echo -e "${RED}\n#####\noh my zsh\n#####\n"
 	omz update
 
-	echo -e "${RED}\n#########\npowerlevel 10k\n#########\n"
+	echo -e "${RED}\n#####\npowerlevel 10k\n#####\n"
 	git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull
 	echo $'\a'
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-eval $(thefuck --alias)
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
